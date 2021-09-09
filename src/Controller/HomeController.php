@@ -19,10 +19,32 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/recruiter/home", name="recruiter_home")
+     * 
+     * @IsGranted("ROLE_RECRUITER")
      */
     public function recruiterIndex()
     {
         return $this->render('home/recruiterIndex.html.twig');
+    }
+
+    /**
+     * @Route("/candidate/home", name="candidate_home")
+     * 
+     * @IsGranted("ROLE_CANDIDATE")
+     */
+    public function candidateIndex()
+    {
+        return $this->render('home/candidateIndex.html.twig');
+    }
+
+    /**
+     * @Route("/consultant/home", name="consultant_home")
+     * 
+     * @IsGranted("ROLE_CONSULTANT")
+     */
+    public function consultantIndex()
+    {
+        return $this->render('home/consultantIndex.html.twig');
     }
 
     /**

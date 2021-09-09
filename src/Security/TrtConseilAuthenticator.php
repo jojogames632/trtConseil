@@ -53,6 +53,12 @@ class TrtConseilAuthenticator extends AbstractLoginFormAuthenticator
         if (in_array('ROLE_RECRUITER', $token->getRoleNames())) {
             return new RedirectResponse($this->urlGenerator->generate('recruiter_home'));
         }
+        else if (in_array('ROLE_CANDIDATE', $token->getRoleNames())) {
+            return new RedirectResponse($this->urlGenerator->generate('candidate_home'));
+        }
+        else if (in_array('ROLE_CONSULTANT', $token->getRoleNames())) {
+            return new RedirectResponse($this->urlGenerator->generate('consultant_home'));
+        }
 
         return new RedirectResponse($this->urlGenerator->generate('admin_home'));
     }
