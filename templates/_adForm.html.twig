@@ -1,0 +1,86 @@
+<h2 class="text-center mt-3">Publier une annonce</h2>
+{{ form_start(form, {
+	'attr' : {
+			'class' : 'fs-6 text-center row d-flex justify-content-center mt-4'
+		}	
+}) }}
+
+<div class="row d-flex justify-content-center mb-3">
+	<div class="col-3">
+		<div class="row">
+			Titre
+		</div>
+		<div class="row">
+			{{ form_widget(form.title) }}
+		</div>
+	</div>
+	<div class="col-1"></div>
+	<div class="col-3">
+		<div class="row">
+			Salaire
+		</div>
+		<div class="row">
+			{{ form_widget(form.salary) }}
+		</div>
+	</div>
+</div>
+
+<div class="row d-flex justify-content-center mb-3">
+	<div class="col-3">
+		<div class="row">
+			Lieu
+		</div>
+		<div class="row">
+			{{ form_widget(form.place) }}
+		</div>
+	</div>
+	<div class="col-1"></div>
+	<div class="col-3">
+		<div class="row">
+			Année(s) d'expérience requise
+		</div>
+		<div class="row">
+			{{ form_widget(form.yearExperienceRequired) }}
+		</div>
+	</div>
+</div>
+
+<div class="row d-flex justify-content-center">
+	<div class="col-3 d-flex flex-column justify-content-center">
+		<div class="row">
+			<div class="col scheduleLabel">Heure de début</div>
+			<div class="col">
+				{{ form_widget(form.scheduleStart, { 
+					'attr' : {
+						'class' : 'mb-4'
+					} 
+				}) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col scheduleLabel">Heure de fin</div>
+			<div class="col">
+				{{ form_widget(form.scheduleEnd, { 
+					'attr' : {
+						'class' : 'mb-2'
+					} 
+				}) }}
+			</div>
+		</div>
+	</div>
+	<div class="col-1"></div>
+	<div class="col-3">
+		<div class="row">
+			Description
+		</div>
+		<div class="row">
+			{{ form_widget(form.description, { 
+				'attr' : {
+					'class' : 'form-control-lg mb-2'
+				}	
+			}) }}
+		</div>
+	</div>
+</div>
+<p><button type="submit" class="btn btn-outline-warning mt-4">Publier</button></p>
+{{ form_end(form) }}

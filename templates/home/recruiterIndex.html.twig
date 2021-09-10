@@ -1,4 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %} 
+	<link rel="stylesheet" href="{{ asset('css/home/recruiterIndex.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/home/_adForm.css') }}" />
+{% endblock %}
+
 {% block body %}
-	<p>page d'accueil recruteur</p>
-	<a href="{{ path('app_logout') }}">Me déconnecter</a>
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<!-- left side profil -->
+			<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+				<div class="row my-5">
+					<span class="p-2">Mon profil recruteur</span>
+				</div>
+				<div class="row mb-5 p-2">
+					<span class="mb-2 p-2">{{ user.email }}</span>
+					{% if user.company is empty %}
+						<span class="mb-2 p-2">Entreprise non renseignée</span>
+					{% else %}
+						<span class="mb-2 p-2">{{ user.company }}</span>
+					{% endif %}
+
+					{% if user.address is empty %}
+						<span>Adresse non renseignée</span>
+					{% else %}
+						<span>{{ user.address }}</span>
+					{% endif %}
+				</div>
+				<div class="row">
+					<a href="#"><button type="button" class="btn btn-outline-warning mb-3">Modifier son profil</button></a>
+					<a href="{{ path('app_logout') }}"><button type="button" class="btn btn-outline-warning">Se déconnecter</button></a>
+				</div>
+			</div>
+			<!-- main area-->
+			<div class="col main">
+				<div class="row">
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success" role="alert">
+							{{ message }}
+						</div>
+					{% endfor %}
+					<!-- include ad form -->
+					{% include "_adForm.html.twig" %}
+					<hr class="mt-3"/>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
