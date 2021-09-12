@@ -1,35 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}" />
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<main class="container-fluid">
+    <div class="row">
+        <div class="col-6 formContainer text-white">
+            <div class="row d-flex justify-content-center">
+                <div class="col-6">                
+                    <h1 class="mb-5 fs-2 text-center">Connecte-toi</h1>
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        <label for="inputEmail">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-4" autocomplete="email" required autofocus>
+                        <label for="inputPassword">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                        <input type="hidden" name="_csrf_token"
+                            value="{{ csrf_token('authenticate') }}"
+                        >
+
+                        <p class="text-center mt-4">
+                            <button class="btn btn-warning" type="submit">
+                                Sign in
+                            </button>
+                        </p>
+                    </form>
+                    <div class="row mt-5">
+                        <h2 class="text-center fs-3 mb-4">Pas encore de compte ?</h2>
+                        <div class="col">
+                            <p class="text-center">
+                                <button type="button" class="btn btn-sm btn-outline-warning">
+                                    <a class="text-white text-decoration-none" href="{{ path('candidate_register') }}">Créer un compte candidat</a>
+                                </button>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p class="text-center">
+                                <button type="button" class="btn btn-sm btn-outline-warning">
+                                    <a class="text-white text-decoration-none" href="{{ path('recruiter_register') }}">Créer un compte recruteur</a>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endif %}
+        <div class="col-6 p-0">
+            <img src="images/trtConseilBackground.jpg" alt="edit"/>
+        </div>
+    </div> 
+</main>
 
-    <h1 class="h3 mb-3 font-weight-normal">Connecte toi</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-
-<p><a href="{{ path('candidate_register') }}">Créer un compte candidat</a></p>
-<p><a href="{{ path('recruiter_register') }}">Créer un compte recruteur</a></p>
 
 {% endblock %}

@@ -1,0 +1,13 @@
+img {
+	object-fit: cover;
+	height: 100vh;
+}
+
+.formContainer {
+	background: linear-gradient(#30476A, #132540);
+}
+
+h1 {
+	margin-top: 16vh;
+}
+
