@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %} 
-	<link rel="stylesheet" href="{{ asset('css/home/recruiterIndex.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/home/_adForm.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/recruiter/index.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/recruiter/_adForm.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -28,7 +28,7 @@
 					{% endif %}
 				</div>
 				<div class="row">
-					<a href="#"><button type="button" class="btn btn-outline-warning mb-3">Modifier son profil</button></a>
+					<a href="{{ path('recruiter_edit') }}"><button type="button" class="btn btn-outline-warning mb-3">Modifier son profil</button></a>
 					<a href="{{ path('app_logout') }}"><button type="button" class="btn btn-outline-warning">Se déconnecter</button></a>
 				</div>
 			</div>

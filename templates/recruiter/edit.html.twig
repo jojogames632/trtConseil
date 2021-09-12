@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %} 
+	<link rel="stylesheet" href="{{ asset('css/recruiter/edit.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<main class="mainContainer container-fluid">
+		<div class="row">
+			<div class="col-6 editContainer text-white">
+				<h2 class="text-center fs-3">Modification du profil</h2>
+				<div class="row d-flex justify-content-center">
+					<form action="update" method="post" class="d-flex flex-column col-6 mt-5">
+						<label for="company">Nom de l'entreprise</label>
+						<input type="text" id="company" name="company" value="{{ user.company }}" class="mb-3" maxlength="255"/>
+						<label for="address">Adresse</label>
+						<input type="text" id="address" name="address" value="{{ user.address }}" maxLength="255" />
+						<p class="text-center mt-5"><button type="submit" class="btn btn-outline-warning">Enregistrer les modifications</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-6 p-0">
+				<img src="/images/editProfilBackground.jpg" alt="edit profil background" />
+			</div>
+		</div>
+	</main>
+{% endblock %}
