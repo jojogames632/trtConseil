@@ -27,9 +27,11 @@
 						<span>{{ user.address }}</span>
 					{% endif %}
 				</div>
-				<div class="row">
-					<a href="{{ path('recruiter_edit') }}"><button type="button" class="btn btn-outline-warning mb-3">Modifier son profil</button></a>
-					<a href="{{ path('app_logout') }}"><button type="button" class="btn btn-outline-warning">Se déconnecter</button></a>
+				<div class="row d-flex justify-content-center">
+					<div class="col-8">
+						<a href="{{ path('recruiter_edit') }}" class="btn btn-outline-warning mb-3">Modifier son profil</a>
+						<a href="{{ path('app_logout') }}" class="btn btn-outline-warning">Se déconnecter</a>
+					</div>
 				</div>
 			</div>
 			<!-- main area-->

@@ -1,0 +1,21 @@
+img {
+	object-fit: cover;
+	height: 100vh;
+}
+
+.formContainer {
+	background: linear-gradient(#30476A, #132540);
+}
+
+.mainFormRow {
+	margin-top: 16vh;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+input {
+	margin-bottom: 20px;
+}

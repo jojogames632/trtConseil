@@ -13,8 +13,7 @@ class SecurityController extends AbstractController
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
-    {   
-        
+    {    
         $roles = [];
         // get roles if user is connected
         if ($this->getUser()) {
