@@ -33,8 +33,9 @@
 				</div>
 			</div>
 			<!-- main area-->
-			<div class="col main">
+			<main class="col main">
 				<div class="row">
+					<h2 class="text-center mt-3 fs-4">Publier une annonce</h2>
 					{% for message in app.flashes('success') %}
 						<div class="alert alert-success" role="alert">
 							{{ message }}
@@ -43,6 +44,10 @@
 					<!-- include ad form -->
 					{% include "_adForm.html.twig" %}
 					<hr class="mt-3"/>
+				</div>
+				<div class="row">
+					<h2 class="text-center mt-3 fs-4">Liste des candidats ayant postulé à vos annonces</h2>
+					{% include "_candidateList.html.twig" %}
 				</div>
 			</div>
 		</div>

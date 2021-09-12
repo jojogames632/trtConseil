@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
 class AdType extends AbstractType
 {
@@ -19,8 +20,18 @@ class AdType extends AbstractType
             ->add('place')
             ->add('scheduleStart', TimeType::class)
             ->add('scheduleEnd', TimeType::class)
-            ->add('salary', NumberType::class)
-            ->add('yearExperienceRequired', NumberType::class)
+            ->add('salary', NumberType::class, [
+                'html5' => true,
+                'constraints' => [
+                    new PositiveOrZero()
+                ]
+            ])
+            ->add('yearExperienceRequired', NumberType::class, [
+                'html5' => true,
+                'constraints' => [
+                    new PositiveOrZero()
+                ]
+            ])
             ->add('description', TextareaType::class)
         ;
     }

@@ -10,6 +10,8 @@ span:hover {
 	background-color: #3c4b64;
 }
 
-.main {
+main {
 	background-color: #E9EAED;
+	overflow: scroll;
+	height: 100vh;
 }
