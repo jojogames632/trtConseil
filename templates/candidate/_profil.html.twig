@@ -1,0 +1,31 @@
+<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+	<div class="row my-5">
+		<span class="p-2 fs-4">Mon profil candidat</span>
+	</div>
+	<div class="row mb-5 p-2">
+		<span class="mb-2 p-2">{{ user.email }}</span>
+		{% if user.firstName is empty %}
+			<span class="mb-2 p-2">Prénom non renseigné</span>
+		{% else %}
+			<span class="mb-2 p-2">{{ user.firstName }}</span>
+		{% endif %}
+
+		{% if user.lastName is empty %}
+			<span class="mb-2 p-2">Nom non renseigné</span>
+		{% else %}
+			<span class="mb-2 p-2">{{ user.lastName }}</span>
+		{% endif %}
+
+		{% if user.cvFilename is empty %}
+			<span>CV non renseignée</span>
+		{% else %}
+			<span>{{ user.cvFilename }}</span>
+		{% endif %}
+	</div>
+	<div class="row d-flex justify-content-center">
+		<div class="col-8">
+			<a href="#" class="btn btn-outline-warning mb-3">Modifier son profil</a>
+			<a href="{{ path('app_logout') }}" class="btn btn-outline-warning">Se déconnecter</a>
+		</div>
+	</div>
+</div>

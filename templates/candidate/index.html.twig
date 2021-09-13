@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Page d'accueil candidat{% endblock %}
+
+{% block stylesheets %} 
+	<link rel="stylesheet" href="{{ asset('css/candidate/index.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<!-- left side profil -->
+				{% include "candidate/_profil.html.twig" %}
+			<!-- main area-->
+			<main class="col">
+				<h1 class="text-center mt-5 fs-3 mb-5">Annonces publiées</h1>
+				{% if jobs|length > 0 %}
+					{% if isAllJobsRequested %}
+						<p class="text-center mt-5">Woaw, quelle motivation ! Vous avez postulé à toutes les annonces disponibles.</p>
+						<div class="text-center">
+							<img class="rounded" src="/images/zen.jpg" alt="zen" />
+						</div>
+					{% else %}
+						{% for job in jobs %}
+							{# display only jobs who are not already requested #}
+							{% if not (job.id in jobsRequested) %}
+								{% include "candidate/_jobContainer.html.twig" %}
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				{% else %}
+					<p class="text-center mt-5">Les recruteurs n'ont pas encore publié d'annonce, soyez patient !</p>
+					<div class="text-center">
+						<img class="rounded" src="/images/zen.jpg" alt="zen" />
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
