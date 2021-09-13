@@ -17,13 +17,10 @@
 				{% if jobs|length > 0 %}
 					{% if isAllJobsRequested %}
 						<p class="text-center mt-5">Woaw, quelle motivation ! Vous avez postulé à toutes les annonces disponibles.</p>
-						<div class="text-center">
-							<img class="rounded" src="/images/zen.jpg" alt="zen" />
-						</div>
 					{% else %}
 						{% for job in jobs %}
 							{# display only jobs who are not already requested #}
-							{% if not (job.id in jobsRequested) %}
+							{% if not (job.id in jobsIdRequested) %}
 								{% include "candidate/_jobContainer.html.twig" %}
 							{% endif %}
 						{% endfor %}
@@ -34,6 +31,11 @@
 						<img class="rounded" src="/images/zen.jpg" alt="zen" />
 					</div>
 				{% endif %}
+				<hr class="my-5"/>
+				<h1 class="text-center mt-5 fs-3 mb-5">Demandes en attente</h1>
+				{% for job in jobsRequested %}
+					{% include "candidate/_pendingJobContainer.html.twig" %}
+				{% endfor %}
 			</div>
 		</div>
 	</div>

@@ -24,20 +24,20 @@ class CandidateController extends AbstractController
         $jobs = $jobRepository->findBy(['isValid' => true]);
 
         // create id array of all jobs already requested
-        $jobsRequested = [];
+        $jobsIdRequested = [];
         $pendingUserJobs = $pendingJobRequestRepository->findBy(['candidate' => $user]);
         $validUserJobs = $validJobRequestRepository->findBy(['candidate' => $user]);
         if ($pendingUserJobs !== null) {
             foreach ($pendingUserJobs as $pendingUserJob) {
-                $jobsRequested[] = $pendingUserJob->getJob()->getId();
+                $jobsIdRequested[] = $pendingUserJob->getJob()->getId();
             }
         }
         if ($validUserJobs !== null) {
             foreach ($validUserJobs as $validUserJob) {
-                $jobsRequested[] = $validUserJob->getJob()->getId();
+                $jobsIdRequested[] = $validUserJob->getJob()->getId();
             }
         }
-        sort($jobsRequested);
+        sort($jobsIdRequested);
 
         // get id array of valid jobs
         $jobsId = [];
@@ -49,15 +49,24 @@ class CandidateController extends AbstractController
         }
 
         $isAllJobsRequested = false;
-        if ($jobsId === $jobsRequested) {
+        if ($jobsId === $jobsIdRequested) {
             $isAllJobsRequested = true;
+        }
+
+        $jobsRequested = [];
+        if ($jobsIdRequested !== null) {
+            foreach ($jobsIdRequested as $jobIdRequested) {
+                $jobsRequested[] = $jobRepository->find($jobIdRequested);
+            }
         }
 
         return $this->render('candidate/index.html.twig', [
             'user' => $user,
             'jobs' => $jobs,
+            'jobsIdRequested' => $jobsIdRequested,
             'jobsRequested' => $jobsRequested,
-            'isAllJobsRequested' => $isAllJobsRequested
+            'isAllJobsRequested' => $isAllJobsRequested,
+            'pendingUserJobs' => $pendingUserJobs
         ]);
     }
 
@@ -81,43 +90,6 @@ class CandidateController extends AbstractController
         $entityManager->persist($pendingJobRequest);
         $entityManager->flush();
 
-        $jobs = $jobRepository->findBy(['isValid' => true]);
-
-        // create an array of id of all jobs already requested to not display them
-        $jobsRequested = [];
-        $pendingUserJobs = $pendingJobRequestRepository->findBy(['candidate' => $user]);
-        $validUserJobs = $validJobRequestRepository->findBy(['candidate' => $user]);
-        if ($pendingUserJobs !== null) {
-            foreach ($pendingUserJobs as $pendingUserJob) {
-                $jobsRequested[] = $pendingUserJob->getJob()->getId();
-            }
-        }
-        if ($validUserJobs !== null) {
-            foreach ($validUserJobs as $validUserJob) {
-                $jobsRequested[] = $validUserJob->getJob()->getId();
-            }
-        }
-        sort($jobsRequested);
-
-        // get id array of valid jobs
-        $jobsId = [];
-        if ($jobs !== null) {
-            foreach ($jobs as $job) {
-                $jobsId[] = $job->getId();
-            }
-            sort($jobsId);
-        }
-
-        $isAllJobsRequested = false;
-        if ($jobsId === $jobsRequested) {
-            $isAllJobsRequested = true;
-        }
-
-        return $this->render('candidate/index.html.twig', [
-            'user' => $user,
-            'jobs' => $jobs,
-            'jobsRequested' => $jobsRequested,
-            'isAllJobsRequested' => $isAllJobsRequested
-        ]);
+        return $this->redirectToRoute('candidate_home');
     }
 }
