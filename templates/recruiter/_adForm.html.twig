@@ -1,0 +1,39 @@
+<div class="row d-flex justify-content-center mt-4">
+	<div class="col-8">
+		{{ form_start(form, { 
+			'attr' : {
+				'class' : 'row'
+				}
+			}
+		) }}
+			<div class="col-6 d-flex flex-column">
+				{{ form_label(form.title, 'Titre') }}
+				{{ form_widget(form.title) }}
+				{{ form_errors(form.title) }}
+				{{ form_label(form.place, 'Lieu') }}
+				{{ form_widget(form.place) }}
+				{{ form_errors(form.place) }}
+				<div class="d-flex justify-content-around mt-2">
+					{{ form_row(form.scheduleStart, {
+						'label' : 'Heure de début'
+					}) }}
+					{{ form_row(form.scheduleEnd, {
+						'label' : 'Heure de fin'
+					}) }}
+				</div>
+			</div>
+			<div class="col-6 d-flex flex-column">
+				{{ form_label(form.salary, 'Salaire') }}
+				{{ form_widget(form.salary) }}
+				{{ form_errors(form.salary) }}
+				{{ form_label(form.yearExperienceRequired, 'Année(s) d\'expérience requise') }}
+				{{ form_widget(form.yearExperienceRequired) }}
+				{{ form_errors(form.yearExperienceRequired) }}
+				{{ form_label(form.description) }}
+				{{ form_widget(form.description) }}
+				{{ form_errors(form.description) }}
+			</div>
+			<span class="text-center mt-4"><button type="submit" class="btn btn-outline-primary">Publier</button></span>
+		{{ form_end(form) }}
+	</div>
+</div>

@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/recruiter/register", name="recruiter_register")
      */
-    public function recruiterRegister(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function recruiterRegister(Request $request, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $authenticator, TrtConseilAuthenticator $formAuthenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -72,7 +72,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('recruiter_home');
+            return $authenticator->authenticateUser($user, $formAuthenticator, $request);
         }
 
         return $this->render('registration/recruiterRegister.html.twig', [
