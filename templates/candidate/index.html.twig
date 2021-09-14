@@ -31,11 +31,26 @@
 						<img class="rounded" src="/images/zen.jpg" alt="zen" />
 					</div>
 				{% endif %}
+				{# pending job requests #}
 				<hr class="my-5"/>
 				<h1 class="text-center mt-5 fs-3 mb-5">Demandes en attente</h1>
-				{% for job in jobsRequested %}
-					{% include "candidate/_pendingJobContainer.html.twig" %}
-				{% endfor %}
+				{% if jobsRequested|length > 0 %}
+					{% for job in jobsRequested %}
+						{% include "candidate/_pendingJobContainer.html.twig" %}
+					{% endfor %}
+				{% else %}
+					<p class="text-center mt-5">Aucune demande en attente</p>
+				{% endif %}
+				{# valid job requests #}
+				<hr class="my-5"/>
+				<h1 class="text-center mt-5 fs-3 mb-5">Demandes acceptées</h1>
+				{% if validRequests|length > 0 %}
+					{% for job in validRequests %}
+						{% include "candidate/_validJobContainer.html.twig" %}
+					{% endfor %}
+				{% else %}
+					<p class="text-center mt-5">Aucune demande acceptée</p>	
+				{% endif %}
 			</div>
 		</div>
 	</div>

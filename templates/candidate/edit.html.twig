@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier son profil{% endblock %}
+
+{% block stylesheets %} 
+	<link rel="stylesheet" href="{{ asset('css/candidate/edit.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<main class="mainContainer container-fluid">
+		<div class="row">
+			<div class="col-6 editContainer text-white">
+				<h2 class="text-center fs-3">Modification du profil</h2>
+				<div class="row d-flex justify-content-center">
+					{# form elements are rendered separately to match flex-column#}
+					{{ form_start(form, { 'attr' : { 'class' : 'd-flex flex-column col-6 mt-5' }}) }}
+					{{ form_label(form.firstName, 'Prénom') }}
+					{{ form_widget(form.firstName) }}
+					{{ form_errors(form.firstName) }}
+					{{ form_label(form.lastName, 'Nom') }}
+					{{ form_widget(form.lastName) }}
+					{{ form_errors(form.lastName) }}
+					{{ form_label(form.cvFilename, 'CV') }}
+					{{ form_widget(form.cvFilename) }}
+					{{ form_errors(form.cvFilename) }}
+					<p class="text-center mt-5"><button type="submit" class="btn btn-outline-warning">Enregistrer les modifications</button>
+					{{ form_end(form) }}
+				</div>
+			</div>
+			<div class="col-6 p-0">
+				<img src="/images/trtConseilBackground.jpg" alt="edit profil background" />
+			</div>
+		</div>
+	</main>
+{% endblock %}

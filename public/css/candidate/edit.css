@@ -1,0 +1,22 @@
+.mainContainer {
+	height: 100vh;
+}
+
+img {
+	object-fit: cover;
+	height: 100vh;
+	width: 100%;
+}
+
+h2 {
+	margin-top: 16vh;
+}
+
+.editContainer {
+	background: linear-gradient(#30476A, #132540);
+}
+
+input {
+	margin-bottom: 20px;
+	border-radius: 5px;
+}

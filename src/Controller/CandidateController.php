@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\PendingJobRequest;
+use App\Form\CandidateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\JobRepository;
 use App\Repository\PendingJobRequestRepository;
 use App\Repository\ValidJobRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/candidate")
@@ -60,11 +62,20 @@ class CandidateController extends AbstractController
             }
         }
 
+        $validRequests = [];
+        if ($validUserJobs !== null) {
+            foreach ($validUserJobs as $validUserJob) {
+                $jobId = $validUserJob->getJob()->getId();
+                $validRequests[] = $jobRepository->find($jobId);
+            }
+        }
+
         return $this->render('candidate/index.html.twig', [
             'user' => $user,
             'jobs' => $jobs,
             'jobsIdRequested' => $jobsIdRequested,
             'jobsRequested' => $jobsRequested,
+            'validRequests' => $validRequests,
             'isAllJobsRequested' => $isAllJobsRequested,
             'pendingUserJobs' => $pendingUserJobs
         ]);
@@ -91,5 +102,27 @@ class CandidateController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('candidate_home');
+    }
+
+    /**
+     * @Route("/edit", name="candidate_edit")
+     */
+    public function editProfil(Request $request, EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(CandidateType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('candidate_home');
+        }
+
+        return $this->render('candidate/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
