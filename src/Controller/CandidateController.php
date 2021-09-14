@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CandidateController extends AbstractController
 {
     /**
-     * @Route("/", name="candidate_home")
+     * @Route("", name="candidate_home")
      */
     public function Index(JobRepository $jobRepository, pendingJobRequestRepository $pendingJobRequestRepository, ValidJobRequestRepository $validJobRequestRepository)
     {

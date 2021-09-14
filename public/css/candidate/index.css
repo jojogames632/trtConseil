@@ -1,13 +1,5 @@
-body {
-	height: 100vh;
-}
-
 .profil {
 	background: linear-gradient(#30476A, #132540);
-}
-
-span:hover {
-	background-color: #3c4b64;
 }
 
 main {
@@ -25,4 +17,9 @@ img {
 	height: 400px;
 	width: 700px;
 	margin-top: 5vh;
+}
+
+h1,
+h2 {
+	color: #405880;
 }

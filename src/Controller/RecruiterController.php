@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RecruiterController extends AbstractController
 {
     /**
-     * @Route("/home", name="recruiter_home")
+     * @Route("", name="recruiter_home")
      */
     public function Index(ValidJobRequestRepository $validJobRequestRepository, JobRepository $jobRepository, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {

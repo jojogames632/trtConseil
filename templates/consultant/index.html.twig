@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %} 
+	<link rel="stylesheet" href="{{ asset('css/consultant/index.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- left side profil -->
+				{% include "consultant/_profil.html.twig" %}
+			<!-- main area-->
+			<main class="col-9 main">
+                <h2 class="text-center mt-4 fs-3 fw-bold">Comptes à activer</h2>
+                <h3 class="text-center mt-5 fs-5">Candidats</h3>
+                {% if pendingCandidates|length > 0 %}
+                    {% include "consultant/_candidateTable.html.twig" %}
+                {% else %}
+                    <p class="text-center mt-4">Aucun compte à activer</p>
+                {% endif %}
+                <h3 class="text-center mt-5 fs-5">Recruteurs</h3>
+                {% if pendingRecruiters|length > 0 %}
+                    {% include "consultant/_recruiterTable.html.twig" %} 
+                {% else %}
+                    <p class="text-center mt-4">Aucun compte à activer</p>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

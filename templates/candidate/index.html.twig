@@ -13,7 +13,7 @@
 				{% include "candidate/_profil.html.twig" %}
 			<!-- main area-->
 			<main class="col">
-				<h1 class="text-center mt-5 fs-3 mb-5">Annonces publiées</h1>
+				<h1 class="text-center mt-5 fs-3 fw-bold mb-5">Annonces publiées</h1>
 				{% if jobs|length > 0 %}
 					{% if isAllJobsRequested %}
 						<p class="text-center mt-5">Woaw, quelle motivation ! Vous avez postulé à toutes les annonces disponibles.</p>
@@ -33,7 +33,7 @@
 				{% endif %}
 				{# pending job requests #}
 				<hr class="my-5"/>
-				<h1 class="text-center mt-5 fs-3 mb-5">Demandes en attente</h1>
+				<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes en attente</h1>
 				{% if jobsRequested|length > 0 %}
 					{% for job in jobsRequested %}
 						{% include "candidate/_pendingJobContainer.html.twig" %}
@@ -43,7 +43,7 @@
 				{% endif %}
 				{# valid job requests #}
 				<hr class="my-5"/>
-				<h1 class="text-center mt-5 fs-3 mb-5">Demandes acceptées</h1>
+				<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes acceptées</h1>
 				{% if validRequests|length > 0 %}
 					{% for job in validRequests %}
 						{% include "candidate/_validJobContainer.html.twig" %}
