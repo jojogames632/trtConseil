@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Job;
 use App\Form\AdType;
+use App\Form\RecruiterType;
 use App\Repository\JobRepository;
 use App\Repository\UserRepository;
 use App\Repository\ValidJobRequestRepository;
@@ -70,30 +71,22 @@ class RecruiterController extends AbstractController
     /**
      * @Route("/edit", name="recruiter_edit")
      */
-    public function editProfil(UserRepository $userRepository): Response
+    public function editProfil(Request $request, EntityManagerInterface $entityManager)
     {
-        $currentUser = $this->getUser();
-        $userId = $currentUser->getId();
-        $user = $userRepository->find($userId);
+        $user = $this->getUser();
+
+        $form = $this->createForm(RecruiterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recruiter_home');
+        }
 
         return $this->render('recruiter/edit.html.twig', [
-           'user' => $user
-        ]); 
-    }
-
-    /**
-     * @Route("/update", name="recruiter_update", methods={"POST"})
-     */
-    public function updateProfil(Request $request, EntityManagerInterface $entityManager)
-    {
-        $company = htmlspecialchars($request->request->get('company'));
-        $address = htmlspecialchars($request->request->get('address'));
-
-        $user = $this->getUser();
-        $user->setCompany($company);
-        $user->setAddress($address);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('recruiter_home');
+            'form' => $form->createView()
+        ]);
     }
 }

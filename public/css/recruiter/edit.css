@@ -15,3 +15,7 @@ h2 {
 .editContainer {
 	background: linear-gradient(#30476A, #132540);
 }
+
+input {
+	margin-bottom: 20px;
+}
