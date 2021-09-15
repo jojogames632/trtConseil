@@ -12,19 +12,55 @@
 			<!-- main area-->
 			<main class="col-9 main">
                 <h2 class="text-center mt-4 fs-3 fw-bold">Comptes à activer</h2>
+
+                {# inactivated candidates table #}
                 <h3 class="text-center mt-5 fs-5">Candidats</h3>
                 {% if pendingCandidates|length > 0 %}
                     {% include "consultant/_candidateTable.html.twig" %}
                 {% else %}
                     <p class="text-center mt-4">Aucun compte à activer</p>
                 {% endif %}
+
+                {# inactivated recruiters table #}
                 <h3 class="text-center mt-5 fs-5">Recruteurs</h3>
                 {% if pendingRecruiters|length > 0 %}
                     {% include "consultant/_recruiterTable.html.twig" %} 
                 {% else %}
                     <p class="text-center mt-4">Aucun compte à activer</p>
                 {% endif %}
-			</div>
+
+                <hr class="my-5" />
+
+                {# invalid jobs #}
+                <h2 class="text-center mt-5 fs-3 fw-bold mb-5">Annonces à valider</h2>
+                {% if invalidJobs|length > 0 %}
+                    {% for job in invalidJobs %}
+                        {% include "consultant/_invalidJob.html.twig" %} 
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center mt-4">Aucune annonce à activer</p>
+                {% endif %}
+
+                <hr class="my-5" />
+
+                {# pending job requests #}
+                <h2 class="text-center my-5 fs-3 fw-bold">Approuver les postulations</h2>
+                {% if requests|length > 0 %}
+                    {% for request in requests %}
+                        <div class="row mb-5 d-flex justify-content-center">
+                            <div class="col-6">
+                                {% include "consultant/_job.html.twig" %}
+                            </div>
+                            <div class="col-6">
+                               {% include "consultant/_candidateRequestsTable.html.twig" %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center mt-4">Aucune demande de postulation</p> 
+                {% endif %}
+                
+			</main>
 		</div>
 	</div>
 {% endblock %}

@@ -1,0 +1,17 @@
+<div class="jobContainer text-center border border-secondary">
+	<div class="row d-flex justify-content-center align-items-center py-3">
+		<div class="col-12 fw-bold fs-5">{{ request['job'].title }}</div>
+	</div>
+	<div class="row d-flex justify-content-center align-items-center py-3">
+		<div class="col-3">⏱ {{ request['job'].scheduleStart|date('H\\hi') }}</div>
+		<div class="col-3">⏱ {{ request['job'].scheduleEnd|date('H\\hi') }}</div>
+		<div class="col-6" id="yearExperienceRequired">Année(s) d'expérience requise : {{ request['job'].yearExperienceRequired }}</div>
+	</div>
+	<div class="row d-flex justify-content-center align-items-center py-3">
+		<div class="col-12">{{ request['job'].description }}</div>
+	</div>
+	<div class="row d-flex justify-content-center align-items-center py-3">
+		<div class="col-4">📍 {{ request['job'].place }}</div>
+		<div class="col-4">💰 {{ request['job'].salary }}€</div>
+	</div>
+</div>

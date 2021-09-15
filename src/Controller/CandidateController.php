@@ -82,7 +82,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/postulate/{jobId}", name="candidate_postulate")
+     * @Route("/postulate/{jobId<\d+>}", name="candidate_postulate")
      */
     public function postulate($jobId, JobRepository $jobRepository, EntityManagerInterface $entityManager, PendingJobRequestRepository $pendingJobRequestRepository, ValidJobRequestRepository $validJobRequestRepository)
     {

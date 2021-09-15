@@ -1,0 +1,22 @@
+<table class="table table-hover text-center">
+	<thead>
+		<tr>    
+			<th>Prénom</th>
+			<th>Nom</th>
+			<th>CV</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for candidate in request['candidates'] %}
+			<tr>
+				<td>{{ candidate.firstName }}</td>
+				<td>{{ candidate.lastName }}</td>
+				<td>{{ candidate.cvFilename }}</td>
+				<td>
+					<a href="{{ path('valid_job_request', {'jobId' : request['job'].id, 'candidateId' : candidate.id}) }}" class="btn btn-sm btn-success">Approuver</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

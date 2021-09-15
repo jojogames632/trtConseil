@@ -14,9 +14,7 @@
 						<td>{{ user.company }}</td>
 						<td>{{ user.address }}</td>
 						<td>
-							<a href="{{ path('activate_recruiter', {'id' : user.id}) }}">
-								<button type="button" class="btn btn-success">Activer</button>
-							</a>
+							<a href="{{ path('activate_recruiter', {'id' : user.id}) }}" class="btn btn-success">Activer</a>
 						</td>
 					</tr>
 				{% endfor %}

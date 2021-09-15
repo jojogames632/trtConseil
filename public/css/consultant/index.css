@@ -11,3 +11,12 @@ main {
 h2 {
 	color: #405880;
 }
+
+.jobContainer {
+	border-radius: 20px;
+	background: linear-gradient(#c7cdd1, #eef2f3);
+}
+
+#yearExperienceRequired {
+	font-size: 15px;
+}

@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\ValidJobRequest;
+use App\Repository\JobRepository;
+use App\Repository\PendingJobRequestRepository;
 use App\Repository\UserRepository;
+use App\Repository\ValidJobRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,21 +20,46 @@ class ConsultantController extends AbstractController
     /**
      * @Route("", name="consultant_home")
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, JobRepository $jobRepository, PendingJobRequestRepository $pendingJobRequestRepository): Response
     {
         $user = $this->getUser();
         $pendingCandidates = $userRepository->findInactivatedUsersByRole("ROLE_CANDIDATE");
         $pendingRecruiters = $userRepository->findInactivatedUsersByRole("ROLE_RECRUITER");
+        
+        $invalidJobs = $jobRepository->findBy(['isValid' => false]);
+
+        $pendingJobRequests = $pendingJobRequestRepository->findAll();
+
+        // create an array of unique job id from pending job requests
+        $pendingJobsId = [];
+        foreach ($pendingJobRequests as $pendingJobRequest) {
+            $pendingJobsId[] = $pendingJobRequest->getJob()->getId();
+        }
+        $pendingJobsId = array_unique($pendingJobsId);
+
+        // create a double array which contains job associated with his candidates from pending job requests
+        $requests = [];
+        foreach ($pendingJobsId as $pendingJobId) {
+            $currentJobRequests = $pendingJobRequestRepository->findBy(['job' => $pendingJobId]);
+            $candidates = [];
+            foreach ($currentJobRequests as $currentJobRequest) {
+                $candidates[] = $currentJobRequest->getCandidate();
+            }
+            $currentJob = $jobRepository->find($pendingJobId);
+            $requests[] = ['job' => $currentJob, 'candidates' => $candidates]; 
+        }
 
         return $this->render('consultant/index.html.twig', [
             'user' => $user,
             'pendingCandidates' => $pendingCandidates,
-            'pendingRecruiters' => $pendingRecruiters
+            'pendingRecruiters' => $pendingRecruiters,
+            'requests' => $requests,
+            'invalidJobs' => $invalidJobs
         ]);
     }
 
     /**
-     * @Route("/activateRecruiter/{id}", name="activate_recruiter")
+     * @Route("/activateRecruiter/{id<\d+>}", name="activate_recruiter")
      */
     public function activateRecruiter($id, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {  
@@ -48,18 +77,72 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/activateCandidate/{id}", name="activate_candidate")
+     * @Route("/activateCandidate/{id<\d+>}", name="activate_candidate")
      */
     public function activateCandidate($id, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {  
         // redirect to 404 if user not found
         if (!$userRepository->find($id)) {
-            throw $this->createNotFoundException(sprintf('Le candidat avec l\id %s n\'existe pas', $id));
+            throw $this->createNotFoundException(sprintf('Le candidat avec l\'id %s n\'existe pas', $id));
         }
 
         $candidate = $userRepository->find($id);
         $candidate->setIsActive(true);
         $entityManager->persist($candidate);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('consultant_home');
+    }
+
+    /**
+     * @Route("/validJob/{id<\d+>}", name="valid_job")
+     */
+    public function validJob($id, JobRepository $jobRepository, EntityManagerInterface $entityManager)
+    {
+        if (!$jobRepository->find($id)) {
+            throw $this->createNotFoundException(sprintf('L\'annonce avec l\id %s n\'existe pas', $id));
+        }
+
+        $job = $jobRepository->find($id);
+        $job->setIsValid(true);
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('consultant_home');
+    }
+
+    /**
+     * @Route("/validJobRequest/{jobId<\d+>}/{candidateId<\d+>}", name="valid_job_request")
+     */
+    public function validJobRequest($jobId, 
+                                    $candidateId, 
+                                    PendingJobRequestRepository $pendingJobRequestRepository,
+                                    ValidJobRequestRepository $validJobRequestRepository, 
+                                    EntityManagerInterface $entityManager,
+                                    UserRepository $userRepository,
+                                    JobRepository $jobRepository
+                                )
+    {
+        if (!$userRepository->find($candidateId) || !$jobRepository->find($jobId)) {
+            throw $this->createNotFoundException('L\'annonce ou le candidat renseigné n\'existe pas');
+        }
+
+        $pendingJobRequest = $pendingJobRequestRepository->findOneBy([
+            'job' => $jobId,
+            'candidate' => $candidateId
+        ]);
+        
+        $entityManager->remove($pendingJobRequest);
+        $entityManager->flush();
+
+        $candidate = $userRepository->find($candidateId);
+        $job = $jobRepository->find($jobId);
+
+        $validJobRequest = new ValidJobRequest();
+        $validJobRequest->setCandidate($candidate);
+        $validJobRequest->setJob($job);
+
+        $entityManager->persist($validJobRequest);
         $entityManager->flush();
 
         return $this->redirectToRoute('consultant_home');
