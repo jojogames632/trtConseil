@@ -20,13 +20,40 @@ class ConsultantController extends AbstractController
     /**
      * @Route("", name="consultant_home")
      */
-    public function index(UserRepository $userRepository, JobRepository $jobRepository, PendingJobRequestRepository $pendingJobRequestRepository): Response
+    public function index(UserRepository $userRepository): Response
     {
         $user = $this->getUser();
         $pendingCandidates = $userRepository->findInactivatedUsersByRole("ROLE_CANDIDATE");
         $pendingRecruiters = $userRepository->findInactivatedUsersByRole("ROLE_RECRUITER");
-        
+
+        return $this->render('consultant/activeAccounts.html.twig', [
+            'user' => $user,
+            'pendingCandidates' => $pendingCandidates,
+            'pendingRecruiters' => $pendingRecruiters,
+        ]);
+    }
+
+    /**
+     * @Route("validJobs", name="valid_jobs")
+     */
+    public function validJobs(JobRepository $jobRepository)
+    {
+        $user = $this->getUser();
+
         $invalidJobs = $jobRepository->findBy(['isValid' => false]);
+
+        return $this->render('consultant/validJobs.html.twig', [
+            'user' => $user,
+            'invalidJobs' => $invalidJobs
+        ]);
+    }
+
+    /**
+     * @Route("validPostulations", name="valid_postulations")
+     */
+    public function validPostulations(JobRepository $jobRepository, PendingJobRequestRepository $pendingJobRequestRepository)
+    {
+        $user = $this->getUser();
 
         $pendingJobRequests = $pendingJobRequestRepository->findAll();
 
@@ -49,12 +76,9 @@ class ConsultantController extends AbstractController
             $requests[] = ['job' => $currentJob, 'candidates' => $candidates]; 
         }
 
-        return $this->render('consultant/index.html.twig', [
+        return $this->render('consultant/validPostulations.html.twig', [
             'user' => $user,
-            'pendingCandidates' => $pendingCandidates,
-            'pendingRecruiters' => $pendingRecruiters,
-            'requests' => $requests,
-            'invalidJobs' => $invalidJobs
+            'requests' => $requests
         ]);
     }
 
@@ -108,7 +132,7 @@ class ConsultantController extends AbstractController
         $entityManager->persist($job);
         $entityManager->flush();
 
-        return $this->redirectToRoute('consultant_home');
+        return $this->redirectToRoute('valid_jobs');
     }
 
     /**
@@ -117,7 +141,6 @@ class ConsultantController extends AbstractController
     public function validJobRequest($jobId, 
                                     $candidateId, 
                                     PendingJobRequestRepository $pendingJobRequestRepository,
-                                    ValidJobRequestRepository $validJobRequestRepository, 
                                     EntityManagerInterface $entityManager,
                                     UserRepository $userRepository,
                                     JobRepository $jobRepository
@@ -145,6 +168,6 @@ class ConsultantController extends AbstractController
         $entityManager->persist($validJobRequest);
         $entityManager->flush();
 
-        return $this->redirectToRoute('consultant_home');
+        return $this->redirectToRoute('valid_postulations');
     }
 }

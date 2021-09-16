@@ -1,0 +1,34 @@
+{% extends "consultant/index.html.twig" %}
+
+{% block profil %}
+	<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+		<span class="p-2 my-5 fw-bold fs-4">Mon profil consultant</span>
+		<span class="mb-5 p-2">{{ user.email }}</span>
+		<a href="#" class="btn btn-warning">Comptes à activer</a>
+		<a href="{{ path('valid_jobs') }}" class="btn btn-outline-warning mt-3">Annonces à valider</a>
+		<a href="{{ path('valid_postulations') }}" class="btn btn-outline-warning mt-3">Approuver les postulations</a>
+		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning mt-5">Se déconnecter</a>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="col-9 main">
+		<h2 class="text-center mt-4 fs-3 fw-bold">Comptes à activer</h2>
+
+		{# inactivated candidates table #}
+		<h3 class="text-center mt-5 fs-5">Candidats</h3>
+		{% if pendingCandidates|length > 0 %}
+			{% include "consultant/_candidateTable.html.twig" %}
+		{% else %}
+			<p class="text-center mt-4">Aucun compte à activer</p>
+		{% endif %}
+
+		{# inactivated recruiters table #}
+		<h3 class="text-center mt-5 fs-5">Recruteurs</h3>
+		{% if pendingRecruiters|length > 0 %}
+			{% include "consultant/_recruiterTable.html.twig" %} 
+		{% else %}
+			<p class="text-center mt-4">Aucun compte à activer</p>
+		{% endif %}		
+	</main>
+{% endblock %}
