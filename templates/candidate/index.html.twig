@@ -10,48 +10,9 @@
 	<div class="container-fluid h-100">
 		<div class="row h-100">
 			<!-- left side profil -->
-				{% include "candidate/_profil.html.twig" %}
+				{% block profil %}{% endblock %}
 			<!-- main area-->
-			<main class="col">
-				<h1 class="text-center mt-5 fs-3 fw-bold mb-5">Annonces publiées</h1>
-				{% if jobs|length > 0 %}
-					{% if isAllJobsRequested %}
-						<p class="text-center mt-5">Woaw, quelle motivation ! Vous avez postulé à toutes les annonces disponibles.</p>
-					{% else %}
-						{% for job in jobs %}
-							{# display only jobs who are not already requested #}
-							{% if not (job.id in jobsIdRequested) %}
-								{% include "candidate/_jobContainer.html.twig" %}
-							{% endif %}
-						{% endfor %}
-					{% endif %}
-				{% else %}
-					<p class="text-center mt-5">Les recruteurs n'ont pas encore publié d'annonce, soyez patient !</p>
-					<div class="text-center">
-						<img class="rounded" src="/images/zen.jpg" alt="zen" />
-					</div>
-				{% endif %}
-				{# pending job requests #}
-				<hr class="my-5"/>
-				<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes en attente</h1>
-				{% if jobsRequested|length > 0 %}
-					{% for job in jobsRequested %}
-						{% include "candidate/_pendingJobContainer.html.twig" %}
-					{% endfor %}
-				{% else %}
-					<p class="text-center mt-5">Aucune demande en attente</p>
-				{% endif %}
-				{# valid job requests #}
-				<hr class="my-5"/>
-				<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes acceptées</h1>
-				{% if validRequests|length > 0 %}
-					{% for job in validRequests %}
-						{% include "candidate/_validJobContainer.html.twig" %}
-					{% endfor %}
-				{% else %}
-					<p class="text-center mt-5">Aucune demande acceptée</p>	
-				{% endif %}
-			</div>
+				{% block main %}{% endblock %}
 		</div>
 	</div>
 {% endblock %}

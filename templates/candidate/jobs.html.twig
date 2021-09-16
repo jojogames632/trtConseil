@@ -1,0 +1,56 @@
+{% extends "candidate/index.html.twig" %}
+
+{% block profil %}
+	<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+		<span class="p-2 fs-4 my-5 fw-bold">Mon profil candidat</span>
+		<span class="mb-2 mt-5 p-2">{{ user.email }}</span>
+
+		{% if user.firstName is empty %}
+			<span class="mb-3">Prénom non renseigné</span>
+		{% else %}
+			<span class="mb-3">{{ user.firstName }}</span>
+		{% endif %}
+
+		{% if user.lastName is empty %}
+			<span class="mb-3">Nom non renseigné</span>
+		{% else %}
+			<span class="mb-3">{{ user.lastName }}</span>
+		{% endif %}
+
+		{% if user.cvFilename is empty %}
+			<span class="mb-5">CV non renseigné</span>
+		{% else %}
+			<span class="mb-5">{{ user.cvFilename }}</span>
+		{% endif %}
+
+		<a href="#" class="btn btn-warning mb-3">Annonces publiées</a>
+		<a href="{{ path('pending_requests') }}" class="btn btn-outline-warning mb-3">Demandes en attente</a>
+		<a href="{{ path('valid_requests') }}" class="btn btn-outline-warning mb-3">Demandes acceptées</a>
+
+		<a href="{{ path('candidate_edit') }}" class="btn btn-outline-warning mt-4 mb-3">Modifier son profil</a>
+		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning">Se déconnecter</a>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="col-9">
+		<h1 class="text-center mt-5 fs-3 fw-bold mb-5">Annonces publiées</h1>
+		{% if jobs|length > 0 %}
+			{% if isAllJobsRequested %}
+				<p class="text-center mt-5">Woaw, quelle motivation ! Vous avez postulé à toutes les annonces disponibles.</p>
+			{% else %}
+				{% for job in jobs %}
+					{# display only jobs who are not already requested #}
+					{% if not (job.id in jobsIdRequested) %}
+						{% include "candidate/_jobContainer.html.twig" %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		{% else %}
+			<p class="text-center mt-5">Les recruteurs n'ont pas encore publié d'annonce, soyez patient !</p>
+			<div class="text-center">
+				<img class="rounded" src="/images/zen.jpg" alt="zen" />
+			</div>
+		{% endif %}
+	</main>
+{% endblock %}

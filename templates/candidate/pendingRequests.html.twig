@@ -1,0 +1,46 @@
+{% extends "candidate/index.html.twig" %}
+
+{% block profil %}
+	<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+		<span class="p-2 fs-4 my-5 fw-bold">Mon profil candidat</span>
+		<span class="mb-2 mt-5 p-2">{{ user.email }}</span>
+
+		{% if user.firstName is empty %}
+			<span class="mb-3">Prénom non renseigné</span>
+		{% else %}
+			<span class="mb-3">{{ user.firstName }}</span>
+		{% endif %}
+
+		{% if user.lastName is empty %}
+			<span class="mb-3">Nom non renseigné</span>
+		{% else %}
+			<span class="mb-3">{{ user.lastName }}</span>
+		{% endif %}
+
+		{% if user.cvFilename is empty %}
+			<span class="mb-5">CV non renseigné</span>
+		{% else %}
+			<span class="mb-5">{{ user.cvFilename }}</span>
+		{% endif %}
+
+		<a href="{{ path('candidate_home') }}" class="btn btn-outline-warning mb-3">Annonces publiées</a>
+		<a href="#" class="btn btn-warning mb-3">Demandes en attente</a>
+		<a href="{{ path('valid_requests') }}" class="btn btn-outline-warning mb-3">Demandes acceptées</a>
+
+		<a href="{{ path('candidate_edit') }}" class="btn btn-outline-warning mb-3 mt-4">Modifier son profil</a>
+		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning">Se déconnecter</a>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="col-9">
+		<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes en attente</h1>
+		{% if jobsRequested|length > 0 %}
+			{% for job in jobsRequested %}
+				{% include "candidate/_pendingJobContainer.html.twig" %}
+			{% endfor %}
+		{% else %}
+			<p class="text-center mt-5">Aucune demande en attente</p>
+		{% endif %}
+	</main>
+{% endblock %}

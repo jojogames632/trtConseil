@@ -25,7 +25,7 @@ class CandidateController extends AbstractController
         $user = $this->getUser();
         $jobs = $jobRepository->findBy(['isValid' => true]);
 
-        // create id array of all jobs already requested
+        // create id array of all jobs requested
         $jobsIdRequested = [];
         $pendingUserJobs = $pendingJobRequestRepository->findBy(['candidate' => $user]);
         $validUserJobs = $validJobRequestRepository->findBy(['candidate' => $user]);
@@ -55,6 +55,39 @@ class CandidateController extends AbstractController
             $isAllJobsRequested = true;
         }
 
+        return $this->render('candidate/jobs.html.twig', [
+            'user' => $user,
+            'jobs' => $jobs,
+            'jobsIdRequested' => $jobsIdRequested,
+            'isAllJobsRequested' => $isAllJobsRequested,
+        ]);
+    }
+
+    /**
+     * @Route("/pendingRequests", name="pending_requests")
+     */
+    public function pendingRequests(PendingJobRequestRepository $pendingJobRequestRepository, JobRepository $jobRepository, ValidJobRequestRepository $validJobRequestRepository)
+    {   
+        $user = $this->getUser();
+        $pendingUserJobs = $pendingJobRequestRepository->findBy(['candidate' => $user]);
+
+        // create id array of all jobs requested
+        $jobsIdRequested = [];
+        $pendingUserJobs = $pendingJobRequestRepository->findBy(['candidate' => $user]);
+        $validUserJobs = $validJobRequestRepository->findBy(['candidate' => $user]);
+        if ($pendingUserJobs !== null) {
+            foreach ($pendingUserJobs as $pendingUserJob) {
+                $jobsIdRequested[] = $pendingUserJob->getJob()->getId();
+            }
+        }
+        if ($validUserJobs !== null) {
+            foreach ($validUserJobs as $validUserJob) {
+                $jobsIdRequested[] = $validUserJob->getJob()->getId();
+            }
+        }
+        sort($jobsIdRequested);
+
+        // create array of all jobs requested
         $jobsRequested = [];
         if ($jobsIdRequested !== null) {
             foreach ($jobsIdRequested as $jobIdRequested) {
@@ -62,6 +95,21 @@ class CandidateController extends AbstractController
             }
         }
 
+        return $this->render('candidate/pendingRequests.html.twig', [
+            'user' => $user,
+            'jobsRequested' => $jobsRequested
+        ]); 
+    }
+
+    /**
+     * @Route("/validRequests", name="valid_requests")
+     */
+    public function validRequests(JobRepository $jobRepository, ValidJobRequestRepository $validJobRequestRepository)
+    {   
+        $user = $this->getUser();
+        $validUserJobs = $validJobRequestRepository->findBy(['candidate' => $user]);
+        
+        // create an array of valid jobs request
         $validRequests = [];
         if ($validUserJobs !== null) {
             foreach ($validUserJobs as $validUserJob) {
@@ -70,15 +118,10 @@ class CandidateController extends AbstractController
             }
         }
 
-        return $this->render('candidate/index.html.twig', [
+        return $this->render('candidate/validRequests.html.twig', [
             'user' => $user,
-            'jobs' => $jobs,
-            'jobsIdRequested' => $jobsIdRequested,
-            'jobsRequested' => $jobsRequested,
-            'validRequests' => $validRequests,
-            'isAllJobsRequested' => $isAllJobsRequested,
-            'pendingUserJobs' => $pendingUserJobs
-        ]);
+            'validRequests' => $validRequests
+        ]); 
     }
 
     /**
