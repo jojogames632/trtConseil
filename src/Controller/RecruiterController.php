@@ -41,7 +41,20 @@ class RecruiterController extends AbstractController
                 $validJobRequests[] = $validJobRequestRepository->findBy(['job' => $jobId]);
             }
         }
-        
+
+        return $this->render('recruiter/candidatesList.html.twig', [
+            'user' => $user,
+            'validJobRequests' => $validJobRequests,
+        ]);
+    }
+
+    /**
+     * @Route("/createJob", name="create_job")
+     */
+    public function createJob(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    {
+        $user = $this->getUser();
+
         $job = new Job();
         $form = $this->createForm(AdType::class, $job);
         $form->handleRequest($request);
@@ -55,17 +68,16 @@ class RecruiterController extends AbstractController
 
             $this->addFlash('success', 'Votre annonce est en attente de validation et sera publiée prochainement');
 
-            return $this->redirectToRoute('recruiter_home');
+            return $this->redirectToRoute('create_job');
         }
         
         $errors = $validator->validate($job);
 
-        return $this->render('recruiter/index.html.twig', [
+        return $this->render('recruiter/createJob.html.twig', [
             'user' => $user,
-            'validJobRequests' => $validJobRequests,
             'form' => $form->createView(),
             'errors' => $errors
-        ]);
+        ]); 
     }
     
     /**

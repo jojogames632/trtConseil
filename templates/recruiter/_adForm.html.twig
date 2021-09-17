@@ -1,11 +1,17 @@
 <div class="row d-flex justify-content-center mt-4">
 	<div class="col-8">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" id="successMessageContainer" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
 		{{ form_start(form, { 
 			'attr' : {
 				'class' : 'row'
 				}
 			}
 		) }}
+		<div class="row">
 			<div class="col-6 d-flex flex-column">
 				{{ form_label(form.title, 'Titre') }}
 				{{ form_widget(form.title) }}
@@ -33,7 +39,8 @@
 				{{ form_widget(form.description) }}
 				{{ form_errors(form.description) }}
 			</div>
-			<span class="text-center mt-4"><button type="submit" class="btn btn-outline-primary">Publier</button></span>
+		</div>
+		<span class="text-center mt-4"><button type="submit" id="createJobButton" class="btn btn-outline-primary">Publier</button></span>
 		{{ form_end(form) }}
 	</div>
 </div>

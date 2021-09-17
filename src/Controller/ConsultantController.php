@@ -34,7 +34,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("validJobs", name="valid_jobs")
+     * @Route("/validJobs", name="valid_jobs")
      */
     public function validJobs(JobRepository $jobRepository)
     {
@@ -49,7 +49,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("validPostulations", name="valid_postulations")
+     * @Route("/validPostulations", name="valid_postulations")
      */
     public function validPostulations(JobRepository $jobRepository, PendingJobRequestRepository $pendingJobRequestRepository)
     {

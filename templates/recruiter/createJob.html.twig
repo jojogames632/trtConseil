@@ -1,0 +1,35 @@
+{% extends "recruiter/index.html.twig" %}
+
+{% block title %}Publier une annonce{% endblock %}
+
+{% block profil %}
+	<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+		<span class="p-2 fs-4 fw-bold mt-5">Mon profil recruteur</span>
+		<span class="mb-2 mt-5 p-2">{{ user.email }}</span>
+
+		{% if user.company is empty %}
+			<span class="mb-2 p-2">Entreprise non renseignée</span>
+		{% else %}
+			<span class="mb-2 p-2">{{ user.company }}</span>
+		{% endif %}
+
+		{% if user.address is empty %}
+			<span>Adresse non renseignée</span>
+		{% else %}
+			<span>{{ user.address }}</span>
+		{% endif %}
+
+		<a href="{{ path('recruiter_home') }}" class="btn btn-outline-warning mb-3 mt-5">Liste des candidats</a>
+		<a href="#" class="btn btn-warning mb-3">Publier une annonce</a>
+
+		<a href="{{ path('recruiter_edit') }}" class="btn btn-outline-warning mb-3 mt-4">Modifier son profil</a>
+		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning">Se déconnecter</a>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="col-9">
+		<h2 class="text-center mt-3 fs-3 fw-bold mt-5">Publier une annonce</h2>
+		{% include "recruiter/_adForm.html.twig" %}
+	</main>
+{% endblock %}

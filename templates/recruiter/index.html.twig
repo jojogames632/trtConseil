@@ -4,33 +4,13 @@
 	<link rel="stylesheet" href="{{ asset('css/recruiter/index.css') }}" />
 	<link rel="stylesheet" href="{{ asset('css/recruiter/_adForm.css') }}" />
 {% endblock %}
-{% block javascripts %}
-	<script src="{{ asset('js/recruiterHome.js') }}"></script>
-{% endblock %}
+{% block javascripts %}{% endblock %}
 
 {% block body %}
-	<div class="container-fluid h-100">
-		<div class="row h-100">
-			<!-- left side profil -->
-				{% include "recruiter/_profil.html.twig" %}
-			<!-- main area-->
-			<main class="col main">
-				<div class="row">
-					<h2 class="text-center mt-3 fs-3 fw-bold">Publier une annonce</h2>
-					{% for message in app.flashes('success') %}
-						<div class="alert alert-success" id="successMessageContainer" role="alert">
-							{{ message }}
-						</div>
-					{% endfor %}
-					<!-- include ad form -->
-					{% include "recruiter/_adForm.html.twig" %}
-					<hr class="my-5"/>
-				</div>
-				<div class="row">
-					<h2 class="text-center fs-3 fw-bold">Liste des candidats ayant postulé à vos annonces</h2>
-					{% include "recruiter/_candidateList.html.twig" %}
-				</div>
-			</div>
+	<div class="container-fluid">
+		<div class="row">
+			{% block profil %}{% endblock %}
+			{% block main %}{% endblock %}
 		</div>
 	</div>
 {% endblock %}
