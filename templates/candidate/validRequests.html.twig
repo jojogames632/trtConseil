@@ -22,12 +22,12 @@
 		{% if user.cvFilename is empty %}
 			<span class="mb-5">CV non renseigné</span>
 		{% else %}
-			<span class="mb-5">{{ user.cvFilename }}</span>
+			<a target="_blank" href="{{ asset('uploads/cv/' ~ user.cvFilename) }}" class="mb-5 text-decoration-none" id="cvLink">{{ user.cvFilename }}</span>
 		{% endif %}
 
 		<a href="{{ path('candidate_home') }}" class="btn btn-outline-warning mb-3">Annonces publiées</a>
 		<a href="{{ path('pending_requests') }}" class="btn btn-outline-warning mb-3">Demandes en attente</a>
-		<a href="#" class="btn btn-warning mb-3">Demandes acceptées</a>
+		<a href="#" class="btn btn-warning mb-3">Demandes vérifiées</a>
 
 		<a href="{{ path('candidate_edit') }}" class="btn btn-outline-warning mb-3 mt-4">Modifier son profil</a>
 		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning">Se déconnecter</a>
@@ -36,7 +36,7 @@
 
 {% block main %}
 	<main class="col-9">
-		<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes acceptées</h1>
+		<h2 class="text-center mt-5 fs-3 fw-bold mb-5">Demandes vérifiées</h1>
 		{% if validRequests|length > 0 %}
 			{% for job in validRequests %}
 				{% include "candidate/_validJobContainer.html.twig" %}

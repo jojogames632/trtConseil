@@ -12,10 +12,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
+/**
+ * @Route("/register")
+ */
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/candidate/register", name="candidate_register")
+     * @Route("/candidate", name="candidate_register")
      */
     public function candidateRegister(Request $request, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $authenticator, TrtConseilAuthenticator $formAuthenticator): Response
     {
@@ -48,7 +51,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/recruiter/register", name="recruiter_register")
+     * @Route("/recruiter", name="recruiter_register")
      */
     public function recruiterRegister(Request $request, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $authenticator, TrtConseilAuthenticator $formAuthenticator): Response
     {

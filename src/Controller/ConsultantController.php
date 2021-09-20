@@ -82,6 +82,10 @@ class ConsultantController extends AbstractController
         ]);
     }
 
+
+    // ********************** Actions **************************************************************************
+
+    
     /**
      * @Route("/activateRecruiter/{id<\d+>}", name="activate_recruiter")
      */

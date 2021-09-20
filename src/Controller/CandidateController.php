@@ -10,7 +10,11 @@ use App\Repository\JobRepository;
 use App\Repository\PendingJobRequestRepository;
 use App\Repository\ValidJobRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/candidate")
@@ -150,7 +154,7 @@ class CandidateController extends AbstractController
     /**
      * @Route("/edit", name="candidate_edit")
      */
-    public function editProfil(Request $request, EntityManagerInterface $entityManager)
+    public function editProfil(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger)
     {
         $user = $this->getUser();
 
@@ -158,6 +162,26 @@ class CandidateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $cvFile = $form->get('cvFilename')->getData();
+            
+            if ($cvFile) {
+                $originalFilename = pathinfo($cvFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $cvFile->guessExtension();
+
+                try {
+                    $cvFile->move(
+                        $this->getParameter('cv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    throw $this->createAccessDeniedException('Erreur lors du téléchargement de votre fichier PDF');
+                }
+
+                $user->setCvFilename($newFilename);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
 
