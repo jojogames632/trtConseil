@@ -18,7 +18,9 @@
 						<td>{{ filtredValidJobRequest.job.title }}</td>
 						<td>{{ filtredValidJobRequest.candidate.firstName}}</td>
 						<td>{{ filtredValidJobRequest.candidate.lastName}}</td>
-						<td>{{ filtredValidJobRequest.candidate.cvFilename}}</td>
+						<td>
+							<a target="_blank" href="{{ asset('uploads/cv/' ~ filtredValidJobRequest.candidate.cvFilename) }}" class="text-decoration-none" id="cvLink">{{ filtredValidJobRequest.candidate.cvFilename }}</a>
+						</td>
 					</tr>
 				{% endfor %}
 			{% endif %}

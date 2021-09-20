@@ -22,7 +22,7 @@
 		{% if user.cvFilename is empty %}
 			<span class="mb-5">CV non renseigné</span>
 		{% else %}
-			<a target="_blank" href="{{ asset('uploads/cv/' ~ user.cvFilename) }}" class="mb-5 text-decoration-none" id="cvLink">{{ user.cvFilename }}</span>
+			<a target="_blank" href="{{ asset('uploads/cv/' ~ user.cvFilename) }}" class="mb-5 text-decoration-none" id="cvLink">{{ user.cvFilename }}</a>
 		{% endif %}
 
 		<a href="#" class="btn btn-warning mb-3">Annonces publiées</a>

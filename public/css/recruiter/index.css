@@ -11,3 +11,11 @@ main {
 h2 {
 	color: #405880;
 }
+
+#cvLink {
+	color: black;
+}
+
+#cvLink:hover {
+	color: #FFC108;
+}
