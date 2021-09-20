@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $authenticator->authenticateUser($user, $formAuthenticator, $request); 
+            return $this->redirectToRoute('inactive_account');
         }
 
         return $this->render('registration/candidateRegister.html.twig', [
@@ -75,11 +75,44 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $authenticator->authenticateUser($user, $formAuthenticator, $request);
+            return $this->redirectToRoute('inactive_account');
         }
 
         return $this->render('registration/recruiterRegister.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/inactiveAccount", name="inactive_account")
+     */
+    public function inactiveAccountIndex() 
+    {
+        $roles = [];
+
+        // get roles and isActive if user is connected
+        if ($this->getUser()) {
+            $roles = $this->getUser()->getRoles();
+            $isActive = $this->getUser()->getIsActive();
+
+            // if user is connected and his account was activated, move to home page
+            if ($isActive) {
+                if (in_array('ROLE_RECRUITER', $roles)) {
+                    return $this->redirectToRoute('recruiter_home');
+                }
+                else if (in_array('ROLE_CANDIDATE', $roles)) {
+                    return $this->redirectToRoute('candidate_home');
+                }
+                else if (in_array('ROLE_CONSULTANT', $roles)) {
+                    return $this->redirectToRoute('consultant_home');
+                }
+                else if (in_array('ROLE_ADMIN', $roles)) {
+                    return $this->redirectToRoute('admin_home');
+                }
+            }
+        }
+        
+
+       return $this->render('inactiveAccount.html.twig');
     }
 }

@@ -14,31 +14,15 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {    
-        $roles = [];
-        // get roles if user is connected
-        if ($this->getUser()) {
-            $roles = $this->getUser()->getRoles();
-        }
-        // if user is already connected, move to home page
-        if (in_array('ROLE_RECRUITER', $roles)) {
-            return $this->redirectToRoute('recruiter_home');
-        }
-        else if (in_array('ROLE_CANDIDATE', $roles)) {
-            return $this->redirectToRoute('candidate_home');
-        }
-        else if (in_array('ROLE_CONSULTANT', $roles)) {
-            return $this->redirectToRoute('consultant_home');
-        }
-        else if (in_array('ROLE_ADMIN', $roles)) {
-            return $this->redirectToRoute('admin_home');
-        }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
 
     /**

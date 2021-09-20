@@ -19,7 +19,7 @@
 		<h2 class="text-center mt-4 fs-3 fw-bold">Comptes à activer</h2>
 
 		{# inactivated candidates table #}
-		<h3 class="text-center mt-5 fs-5">Candidats</h3>
+		<h3 class="text-center mt-5 mb-4 fs-5">Candidats</h3>
 		{% if pendingCandidates|length > 0 %}
 			{% include "consultant/_candidateTable.html.twig" %}
 		{% else %}
@@ -27,7 +27,7 @@
 		{% endif %}
 
 		{# inactivated recruiters table #}
-		<h3 class="text-center mt-5 fs-5">Recruteurs</h3>
+		<h3 class="text-center mt-5 mb-4 fs-5">Recruteurs</h3>
 		{% if pendingRecruiters|length > 0 %}
 			{% include "consultant/_recruiterTable.html.twig" %} 
 		{% else %}

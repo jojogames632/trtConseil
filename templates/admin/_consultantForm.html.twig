@@ -1,0 +1,23 @@
+<div class="row d-flex justify-content-center">
+		{{ form_start(form, {
+			'attr' : {
+				'class' : 'col-4 d-flex flex-column'
+			}
+		}) }}
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{{ form_label(form.email) }}
+			{{ form_widget(form.email) }}
+			{{ form_errors(form.email) }}
+			{{ form_label(form.plainPassword.first, 'Mot de passe') }}
+			{{ form_widget(form.plainPassword.first) }}
+			{{ form_errors(form.plainPassword.first) }}
+			{{ form_label(form.plainPassword.second, 'Confirmation du mot de passe') }}
+			{{ form_widget(form.plainPassword.second) }}
+			{{ form_errors(form.plainPassword.second) }}
+			<span class="text-center mt-4"><button type="submit" class="btn btn-outline-primary">Publier</button></span>
+		{{ form_end(form) }}
+</div>

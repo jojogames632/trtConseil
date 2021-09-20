@@ -1,0 +1,19 @@
+{% extends "admin/index.html.twig" %}
+
+{% block title %}Créer un compte consultant{% endblock %}
+
+{% block profil %}
+	<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+		<span class="p-2 my-5 fw-bold fs-4">Mon profil administrateur</span>
+		<span class="p-2">{{ user.email }}</span>
+		
+		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning mt-5">Se déconnecter</a>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="col-9">
+		<h1 class="text-center mt-5 fs-3 fw-bold mb-5">Créer un compte consultant</h1>
+		{% include "admin/_consultantForm.html.twig" %}
+	</main>
+{% endblock %}

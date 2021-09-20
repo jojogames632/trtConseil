@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use App\Entity\User;
 
 class TrtConseilAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -50,17 +51,23 @@ class TrtConseilAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        if (in_array('ROLE_RECRUITER', $token->getRoleNames())) {
-            return new RedirectResponse($this->urlGenerator->generate('recruiter_home'));
-        }
-        else if (in_array('ROLE_CANDIDATE', $token->getRoleNames())) {
-            return new RedirectResponse($this->urlGenerator->generate('candidate_home'));
-        }
-        else if (in_array('ROLE_CONSULTANT', $token->getRoleNames())) {
-            return new RedirectResponse($this->urlGenerator->generate('consultant_home'));
-        }
-        else if (in_array('ROLE_ADMIN', $token->getRoleNames())) {
-            return new RedirectResponse($this->urlGenerator->generate('admin_home'));
+        // verify if account is active and redirect according to his role
+        if ($token->getUser()->isActive) {
+
+            if (in_array('ROLE_RECRUITER', $token->getRoleNames())) {
+                return new RedirectResponse($this->urlGenerator->generate('recruiter_home'));
+            }
+            else if (in_array('ROLE_CANDIDATE', $token->getRoleNames())) {
+                return new RedirectResponse($this->urlGenerator->generate('candidate_home'));
+            }
+            else if (in_array('ROLE_CONSULTANT', $token->getRoleNames())) {
+                return new RedirectResponse($this->urlGenerator->generate('consultant_home'));
+            }
+            else if (in_array('ROLE_ADMIN', $token->getRoleNames())) {
+                return new RedirectResponse($this->urlGenerator->generate('admin_home'));
+            }
+        } else {
+            return new RedirectResponse($this->urlGenerator->generate('inactive_account'));
         }
     }
 

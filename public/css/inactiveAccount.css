@@ -1,0 +1,8 @@
+img {
+	object-fit: cover;
+	height: 100vh;
+}
+
+.background {
+	background: linear-gradient(#30476A, #132540);
+}

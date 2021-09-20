@@ -1,0 +1,21 @@
+.profil {
+	background: linear-gradient(#30476A, #132540);
+}
+
+main {
+	background-color: #E9EAED;
+	overflow: scroll;
+	height: 100vh;
+}
+
+h1 {
+	color: #405880;
+}
+
+input {
+	margin-bottom: 20px;
+}
+
+li {
+	color: #C63840;
+}
