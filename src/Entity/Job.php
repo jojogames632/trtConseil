@@ -67,7 +67,7 @@ class Job
     private $isValid;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobs")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobs", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $recruiter;
@@ -192,7 +192,7 @@ class Job
 
     public function getRecruiter(): ?User
     {
-        return $this->recruiterId;
+        return $this->recruiter;
     }
 
     public function setRecruiter(?User $recruiter): self

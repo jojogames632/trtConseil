@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -70,10 +69,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $cvFilename;
 
-    // /**
-    //  * @ORM\OneToMany(targetEntity=Job::class, mappedBy="recruiterId", orphanRemoval=true)
-    //  */
-    // private $jobs;
+    /**
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="recruiter", orphanRemoval=true)
+     */
+    private $jobs;
 
     /**
      * @ORM\OneToMany(targetEntity=PendingJobRequest::class, mappedBy="candidate", orphanRemoval=true)

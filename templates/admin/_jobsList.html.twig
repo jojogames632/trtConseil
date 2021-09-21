@@ -1,0 +1,35 @@
+<table class="table text-center table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Id du recruteur</th>
+			<th>Titre</th>
+			<th>Lieu</th>
+			<th>Heure de début</th>
+			<th>Heure de fin</th>
+			<th>Salaire</th>
+			<th>Année(s) d'expérience requise</th>
+			<th>Validé?</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for job in jobs %}
+			<tr>
+				<td>{{ job.id }}</td>
+				<td>{{ job.recruiter.id }}</td>
+				<td>{{ job.title }}</td>
+				<td>{{ job.place}}</td>
+				<td>{{ job.scheduleStart|date('H\\hi') }}</td>
+				<td>{{ job.scheduleEnd|date('H\\hi') }}</td>
+				<td>{{ job.salary }}</td>
+				<td>{{ job.yearExperienceRequired }}</td>
+				<td>{{ job.isValid ? 'Oui' : 'Non'}}</td>
+				<td>{{ job.description }}</td>
+				<td>
+					<a href="{{ path('delete_job', { 'id' : job.id }) }}" class="btn btn-sm btn-danger">Supprimer</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
