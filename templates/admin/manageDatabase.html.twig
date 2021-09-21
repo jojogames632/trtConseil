@@ -17,28 +17,45 @@
 {% block main %}
 	<main class="col-9">
 		<h1 class="text-center mt-5 fs-3 fw-bold mb-5">Consulter les données</h1>
-		<div class="row d-flex justify-content-center">
-			<div class="col-11">
-				{% include "admin/_candidatesList.html.twig" %}
-			</div>
-		</div>
 
-		<div class="row d-flex justify-content-center mt-5">
-			<div class="col-10">
-				{% include "admin/_recruitersList.html.twig" %}
+		{% if candidates|length > 0 %}
+			<div class="row d-flex justify-content-center">
+				<div class="col-11">
+					{% include "admin/_candidatesList.html.twig" %}
+				</div>
 			</div>
-		</div>
+		{% else %}
+			<p class="text-center mt-5">Aucun compte candidat</p>
+		{% endif %}
 
-		<div class="row d-flex justify-content-center mt-5">
-			<div class="col-6">
-				{% include "admin/_consultantsList.html.twig" %}
+		{% if recruiters|length > 0 %}
+			<div class="row d-flex justify-content-center mt-5">
+				<div class="col-10">
+					{% include "admin/_recruitersList.html.twig" %}
+				</div>
 			</div>
-		</div>
+		{% else %}
+			<p class="text-center mt-5">Aucun compte recruteur</p>
+		{% endif %}
 
-		<div class="row d-flex justify-content-center mt-5">
-			<div class="col-6">
-				{% include "admin/_adminsList.html.twig" %}
+		{% if consultants|length > 0 %}
+			<div class="row d-flex justify-content-center mt-5">
+				<div class="col-6">
+					{% include "admin/_consultantsList.html.twig" %}
+				</div>
 			</div>
-		</div>
+		{% else %}
+			<p class="text-center mt-5">Aucun compte consultant</p>	
+		{% endif %}
+
+		{% if admins|length > 0 %}
+			<div class="row d-flex justify-content-center mt-5">
+				<div class="col-6">
+					{% include "admin/_adminsList.html.twig" %}
+				</div>
+			</div>
+		{% else %}
+			<p class="text-center mt-5">Aucun compte admin</p>
+		{% endif %}
 	</main>
 {% endblock %}

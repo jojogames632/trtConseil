@@ -24,7 +24,7 @@
 				<td>{{ recruiter.company }}</td>
 				<td>{{ recruiter.address }}</td>
 				<td>
-					<a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+					<a href="{{ path('delete_recruiter', { 'id' : recruiter.id }) }}" class="btn btn-sm btn-danger">Supprimer</a>
 				</td>
 			</tr>
 		{% endfor %}

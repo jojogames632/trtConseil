@@ -18,7 +18,11 @@
 					{% endfor %}
 				</td>
 				<td>
-					<a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+					{% if user.id != admin.id %}
+						<a href="{{ path('delete_admin', { 'id' : admin.id }) }}" class="btn btn-sm btn-danger">Supprimer</a>
+					{% else %}
+						🚫	
+					{% endif %}
 				</td>
 			</tr>
 		{% endfor %}

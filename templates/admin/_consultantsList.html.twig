@@ -18,7 +18,7 @@
 					{% endfor %}
 				</td>
 				<td>
-					<a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+					<a href="{{ path('delete_consultant', { 'id' : consultant.id }) }}" class="btn btn-sm btn-danger">Supprimer</a>
 				</td>
 			</tr>
 		{% endfor %}

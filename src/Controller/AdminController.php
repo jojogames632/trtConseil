@@ -22,7 +22,7 @@ class AdminController extends AbstractController
     /**
      * @Route("", name="admin_home")
      */
-    public function manageDatabase(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
+    public function manageDatabase(UserRepository $userRepository): Response
     {
         $user = $this->getUser();
 

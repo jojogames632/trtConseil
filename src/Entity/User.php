@@ -70,10 +70,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $cvFilename;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="recruiterId", orphanRemoval=true)
-     */
-    private $jobs;
+    // /**
+    //  * @ORM\OneToMany(targetEntity=Job::class, mappedBy="recruiterId", orphanRemoval=true)
+    //  */
+    // private $jobs;
 
     /**
      * @ORM\OneToMany(targetEntity=PendingJobRequest::class, mappedBy="candidate", orphanRemoval=true)
