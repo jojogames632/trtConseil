@@ -155,8 +155,10 @@ class ConsultantController extends AbstractController
             'candidate' => $candidateId
         ]);
         
-        $entityManager->remove($pendingJobRequest);
-        $entityManager->flush();
+        if ($pendingJobRequest) {
+            $entityManager->remove($pendingJobRequest);
+            $entityManager->flush();
+        }
 
         $candidate = $userRepository->find($candidateId);
         $job = $jobRepository->find($jobId);
@@ -174,8 +176,12 @@ class ConsultantController extends AbstractController
         $email = (new Email())
             ->from('trtConseil@gmail.com')
             ->to($recruiterEmail)
+            ->attachFromPath('uploads/cv/' . $candidate->getCvFilename())
             ->subject('Un candidat vient de postuler à votre annonce')
-            ->html('<p>Test</p>');
+            ->html('<p>Le candidat ' . $candidate->getFirstName() . ' ' . $candidate->getLastName() . ' vient de postuler à votre annonce "' . $job->getTitle() . '"</p>
+                    <p>Vous trouverez son CV en pièce jointe</p>
+                    <br />
+                    <p>Ceci est un mail automatique, merci de ne pas y répondre</p>');
         
         $mailer->send($email);
 
