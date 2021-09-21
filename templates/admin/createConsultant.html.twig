@@ -7,8 +7,9 @@
 		<span class="p-2 my-5 fw-bold fs-4">Mon profil administrateur</span>
 		<span class="p-2">{{ user.email }}</span>
 
-		<a href="{{ path('admin_home') }}" class="btn btn-outline-warning mt-5">Consulter les données</a>
-		<a href="#" class="btn btn-warning mt-3">Créer un compte consultant</a>
+		<a href="{{ path('admin_home') }}" class="btn btn-outline-warning mt-5">Consulter les utilisateurs</a>
+		<a href="{{ path('manage_jobs') }}" class="btn btn-outline-warning mt-2">Consulter les annonces</a>
+		<a href="#" class="btn btn-warning mt-2">Créer un compte consultant</a>
 
 		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning mt-5">Se déconnecter</a>
 	</div>

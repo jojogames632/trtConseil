@@ -10,6 +10,8 @@ use App\Repository\ValidJobRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -142,7 +144,7 @@ class ConsultantController extends AbstractController
     /**
      * @Route("/valid-jobRequest/{jobId<\d+>}/{candidateId<\d+>}", name="valid_job_request")
      */
-    public function validJobRequest($jobId, $candidateId, PendingJobRequestRepository $pendingJobRequestRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, JobRepository $jobRepository)
+    public function validJobRequest($jobId, $candidateId, PendingJobRequestRepository $pendingJobRequestRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, JobRepository $jobRepository, MailerInterface $mailer)
     {
         if (!$userRepository->find($candidateId) || !$jobRepository->find($jobId)) {
             throw $this->createNotFoundException('L\'annonce ou le candidat renseigné n\'existe pas');
@@ -165,6 +167,17 @@ class ConsultantController extends AbstractController
 
         $entityManager->persist($validJobRequest);
         $entityManager->flush();
+
+        // send email to recruiter
+        $recruiterEmail = $userRepository->find($job->getRecruiter())->getEmail();
+
+        $email = (new Email())
+            ->from('trtConseil@gmail.com')
+            ->to($recruiterEmail)
+            ->subject('Un candidat vient de postuler à votre annonce')
+            ->html('<p>Test</p>');
+        
+        $mailer->send($email);
 
         return $this->redirectToRoute('valid_postulations');
     }

@@ -67,7 +67,7 @@ class Job
     private $isValid;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobs", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
      */
     private $recruiter;
