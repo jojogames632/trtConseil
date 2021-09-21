@@ -84,7 +84,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/inactiveAccount", name="inactive_account")
+     * @Route("/inactive-account", name="inactive_account")
      */
     public function inactiveAccountIndex() 
     {

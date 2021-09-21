@@ -1,0 +1,44 @@
+{% extends "admin/index.html.twig" %}
+
+{% block title %}Consulter et supprimer des données{% endblock %}
+
+{% block profil %}
+	<div class="col-3 d-flex flex-column profil text-center text-white fs-5">
+		<span class="p-2 my-5 fw-bold fs-4">Mon profil administrateur</span>
+		<span class="p-2">{{ user.email }}</span>
+		
+		<a href="#" class="btn btn-warning mt-5">Consulter les données</a>
+		<a href="{{ path('create_consultant') }}" class="btn btn-outline-warning mt-2">Créer un compte consultant</a>
+
+		<a href="{{ path('app_logout') }}" class="btn btn-outline-warning mt-5">Se déconnecter</a>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="col-9">
+		<h1 class="text-center mt-5 fs-3 fw-bold mb-5">Consulter les données</h1>
+		<div class="row d-flex justify-content-center">
+			<div class="col-11">
+				{% include "admin/_candidatesList.html.twig" %}
+			</div>
+		</div>
+
+		<div class="row d-flex justify-content-center mt-5">
+			<div class="col-10">
+				{% include "admin/_recruitersList.html.twig" %}
+			</div>
+		</div>
+
+		<div class="row d-flex justify-content-center mt-5">
+			<div class="col-6">
+				{% include "admin/_consultantsList.html.twig" %}
+			</div>
+		</div>
+
+		<div class="row d-flex justify-content-center mt-5">
+			<div class="col-6">
+				{% include "admin/_adminsList.html.twig" %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

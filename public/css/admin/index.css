@@ -19,3 +19,11 @@ input {
 li {
 	color: #C63840;
 }
+
+.cvLink {
+	color: black;
+}
+
+.cvLink:hover {
+	color: #FFC108;
+}

@@ -1,0 +1,32 @@
+<table class="table text-center table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Activé?</th>
+			<th>Entreprise</th>
+			<th>Adresse</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for recruiter in recruiters %}
+			<tr>
+				<td>{{ recruiter.id }}</td>
+				<td>{{ recruiter.email }}</td>
+				<td>
+					{% for role in recruiter.roles %}
+						{{ role }}
+					{% endfor %}
+				</td>
+				<td>{{ recruiter.isActive ? 'Oui' : 'Non' }}</td>
+				<td>{{ recruiter.company }}</td>
+				<td>{{ recruiter.address }}</td>
+				<td>
+					<a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

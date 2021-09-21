@@ -1,0 +1,26 @@
+<table class="table text-center table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for consultant in consultants %}
+			<tr>
+				<td>{{ consultant.id }}</td>
+				<td>{{ consultant.email }}</td>
+				<td>
+					{% for role in consultant.roles %}
+						{{ role }}
+					{% endfor %}
+				</td>
+				<td>
+					<a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

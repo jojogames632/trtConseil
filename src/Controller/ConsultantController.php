@@ -34,7 +34,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/validJobs", name="valid_jobs")
+     * @Route("/valid-jobs", name="valid_jobs")
      */
     public function validJobs(JobRepository $jobRepository)
     {
@@ -49,7 +49,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/validPostulations", name="valid_postulations")
+     * @Route("/valid-postulations", name="valid_postulations")
      */
     public function validPostulations(JobRepository $jobRepository, PendingJobRequestRepository $pendingJobRequestRepository)
     {
@@ -87,7 +87,7 @@ class ConsultantController extends AbstractController
 
     
     /**
-     * @Route("/activateRecruiter/{id<\d+>}", name="activate_recruiter")
+     * @Route("/activate-recruiter/{id<\d+>}", name="activate_recruiter")
      */
     public function activateRecruiter($id, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {  
@@ -105,7 +105,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/activateCandidate/{id<\d+>}", name="activate_candidate")
+     * @Route("/activate-candidate/{id<\d+>}", name="activate_candidate")
      */
     public function activateCandidate($id, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {  
@@ -123,7 +123,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/validJob/{id<\d+>}", name="valid_job")
+     * @Route("/valid-job/{id<\d+>}", name="valid_job")
      */
     public function validJob($id, JobRepository $jobRepository, EntityManagerInterface $entityManager)
     {
@@ -140,15 +140,9 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/validJobRequest/{jobId<\d+>}/{candidateId<\d+>}", name="valid_job_request")
+     * @Route("/valid-jobRequest/{jobId<\d+>}/{candidateId<\d+>}", name="valid_job_request")
      */
-    public function validJobRequest($jobId, 
-                                    $candidateId, 
-                                    PendingJobRequestRepository $pendingJobRequestRepository,
-                                    EntityManagerInterface $entityManager,
-                                    UserRepository $userRepository,
-                                    JobRepository $jobRepository
-                                )
+    public function validJobRequest($jobId, $candidateId, PendingJobRequestRepository $pendingJobRequestRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, JobRepository $jobRepository)
     {
         if (!$userRepository->find($candidateId) || !$jobRepository->find($jobId)) {
             throw $this->createNotFoundException('L\'annonce ou le candidat renseigné n\'existe pas');

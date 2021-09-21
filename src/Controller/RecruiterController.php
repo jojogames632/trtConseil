@@ -49,7 +49,7 @@ class RecruiterController extends AbstractController
     }
 
     /**
-     * @Route("/createJob", name="create_job")
+     * @Route("/create-job", name="create_job")
      */
     public function createJob(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {

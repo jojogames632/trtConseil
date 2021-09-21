@@ -66,7 +66,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/pendingRequests", name="pending_requests")
+     * @Route("/pending-requests", name="pending_requests")
      */
     public function pendingRequests(PendingJobRequestRepository $pendingJobRequestRepository, JobRepository $jobRepository, ValidJobRequestRepository $validJobRequestRepository)
     {   
@@ -104,7 +104,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/validRequests", name="valid_requests")
+     * @Route("/valid-requests", name="valid_requests")
      */
     public function validRequests(JobRepository $jobRepository, ValidJobRequestRepository $validJobRequestRepository)
     {   

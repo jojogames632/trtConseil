@@ -1,0 +1,36 @@
+<table class="table text-center table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Activé?</th>
+			<th>Nom</th>
+			<th>Prénom</th>
+			<th>CV</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for candidate in candidates %}
+			<tr>
+				<td>{{ candidate.id }}</td>
+				<td>{{ candidate.email }}</td>
+				<td>
+					{% for role in candidate.roles %}
+						{{ role }}
+					{% endfor %}
+				</td>
+				<td>{{ candidate.isActive ? 'Oui' : 'Non' }}</td>
+				<td>{{ candidate.lastName }}</td>
+				<td>{{ candidate.firstName }}</td>
+				<td>
+					<a target="_blank" href="{{ asset('uploads/cv/' ~ candidate.cvFilename) }}" class="text-decoration-none cvLink">{{ candidate.cvFilename }}</a>
+				</td>
+				<td>
+					<a href="{{ path('delete_candidate', { 'id' : candidate.id }) }}" class="btn btn-sm btn-danger">Supprimer</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
