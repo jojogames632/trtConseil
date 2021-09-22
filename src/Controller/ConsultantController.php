@@ -141,7 +141,7 @@ class ConsultantController extends AbstractController
     }
 
     /**
-     * @Route("/valid-jobRequest/{jobId<\d+>}/{candidateId<\d+>}", name="valid_job_request")
+     * @Route("/valid-job-request/{jobId<\d+>}/{candidateId<\d+>}", name="valid_job_request")
      */
     public function validJobRequest($jobId, $candidateId, PendingJobRequestRepository $pendingJobRequestRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, JobRepository $jobRepository, MailerInterface $mailer)
     {

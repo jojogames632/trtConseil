@@ -13,7 +13,7 @@
 				<td>{{ candidate.firstName }}</td>
 				<td>{{ candidate.lastName }}</td>
 				<td>
-					<a target="_blank" href="{{ asset('uploads/cv/' ~ candidate.cvFilename) }}" class="text-decoration-none" id="cvLink">{{ candidate.cvFilename }}</a>
+					<a target="_blank" href="{{ asset('uploads/cv/' ~ candidate.cvFilename) }}" class="text-decoration-none cvLink">{{ candidate.cvFilename }}</a>
 				</td>
 				<td>
 					<a href="{{ path('valid_job_request', {'jobId' : request['job'].id, 'candidateId' : candidate.id}) }}" class="btn btn-sm btn-success">Approuver</a>

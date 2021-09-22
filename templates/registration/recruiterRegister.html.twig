@@ -23,9 +23,15 @@
                         {{ form_label(registrationForm.plainPassword.second, 'Confirmation du mot de passe') }}
                         {{ form_widget(registrationForm.plainPassword.second) }}
                         {{ form_errors(registrationForm.plainPassword.second) }}
-                        <p class="text-center mt-4">
-                            <button type="submit" class="btn btn-warning">Créer</button>
-                        </p>
+
+                        <div class="row d-flex justify-content-center mt-4">
+                            <div class="col-4">
+                                <a href="{{ path('app_login') }}" class="btn btn-outline-warning">Annuler</a>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-warning">Créer</button>
+                            </div>
+                        </div>
                     {{ form_end(registrationForm) }}
                 </div>
             </div>
