@@ -133,22 +133,6 @@ class AdminController extends AbstractController
             throw $this->createNotFoundException(sprintf('Le recruteur avec l\'id numéro %s n\'existe pas', $id));
         }
 
-        // delete all data about recruiter before delete him
-        $pendingJobRequests = $pendingJobRequestRepository->findBy(['recruiter' => $id]);
-        $validJobRequests = $validJobRequestRepository->findBy(['recruiter' => $id]);
-        if (!empty($pendingJobRequests)) {
-            foreach ($pendingJobRequests as $pendingJobRequest) {
-                $entityManager->remove($pendingJobRequest->getId());
-                $entityManager->flush();
-            }
-        }
-        if (!empty($validJobRequests)) {
-            foreach ($validJobRequests as $validJobRequest) {
-                $entityManager->remove($validJobRequest->getId());
-                $entityManager->flush();
-            }
-        }
-
         $recruiter = $userRepository->find($id);
         $entityManager->remove($recruiter);
         $entityManager->flush();

@@ -6,7 +6,6 @@ use App\Entity\ValidJobRequest;
 use App\Repository\JobRepository;
 use App\Repository\PendingJobRequestRepository;
 use App\Repository\UserRepository;
-use App\Repository\ValidJobRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -178,10 +177,10 @@ class ConsultantController extends AbstractController
             ->to($recruiterEmail)
             ->attachFromPath('uploads/cv/' . $candidate->getCvFilename())
             ->subject('Un candidat vient de postuler à votre annonce')
-            ->html('<p>Le candidat ' . $candidate->getFirstName() . ' ' . $candidate->getLastName() . ' vient de postuler à votre annonce "' . $job->getTitle() . '"</p>
-                    <p>Vous trouverez son CV en pièce jointe</p>
+            ->html('<p>Le candidat ' . $candidate->getFirstName() . ' ' . $candidate->getLastName() . ' vient de postuler à votre annonce "' . $job->getTitle() . '".</p>
+                    <p>Vous trouverez son CV en pièce jointe.</p>
                     <br />
-                    <p>Ceci est un mail automatique, merci de ne pas y répondre</p>');
+                    <p>Ceci est un mail automatique, merci de ne pas y répondre.</p>');
         
         $mailer->send($email);
 
