@@ -1,4 +1,4 @@
-# TRT Conseil - Agence de recrutement 
+# TRT Conseil - Agence de recrutement http://trtconseil.herokuapp.com/
 ***
 ## Avertissement
 ***
@@ -7,7 +7,7 @@
 * En conséquence, nous considérons que cette application est destinée uniquement pour les ordinateurs. 
 *
 * L'application étant hebergée sur heroku avec un plan gratuit, le protocole est Http. Pour une utilisation réelle, le 
-* protocole Https aurait été utilisé. 
+* protocole Https aurait été utilisé.
 ## Création d'un compte admin
 ***
 * Pour créer un compte admin vous avez besoin de télécharger le logiciel MySQLWorkbench : https://www.mysql.com/fr/products/workbench/
