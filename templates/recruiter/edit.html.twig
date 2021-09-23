@@ -14,13 +14,21 @@
 				<div class="row d-flex justify-content-center">
 					{# form elements are rendered separately to match flex-column#}
 					{{ form_start(form, { 'attr' : { 'class' : 'd-flex flex-column col-6 mt-5' }}) }}
-					{{ form_label(form.company, 'Entreprise') }}
-					{{ form_widget(form.company) }}
-					{{ form_errors(form.company) }}
-					{{ form_label(form.address, 'Adresse') }}
-					{{ form_widget(form.address) }}
-					{{ form_errors(form.address) }}
-					<p class="text-center mt-5"><button type="submit" class="btn btn-outline-warning">Enregistrer les modifications</button>
+						{{ form_label(form.company, 'Entreprise') }}
+						{{ form_widget(form.company) }}
+						{{ form_errors(form.company) }}
+						{{ form_label(form.address, 'Adresse') }}
+						{{ form_widget(form.address) }}
+						{{ form_errors(form.address) }}
+
+						<div class="row d-flex justify-content-center mt-5">
+							<div class="col-3">
+								<a href="{{ path('recruiter_home') }}" class="btn btn-outline-warning">Annuler</a>
+							</div>
+							<div class="col-8 text-center">
+								<button type="submit" class="btn btn-outline-warning">Enregistrer les modifications</button>
+							</div>
+						</div>
 					{{ form_end(form) }}
 				</div>
 			</div>
