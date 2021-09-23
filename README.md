@@ -4,7 +4,10 @@
 ***
 * Cette application n'a pas été conçue en suivant le modèle "mobile first".
 * Son créateur a pris conscience de cette faute, et ne manquera pas d'y penser pour ses futurs projets.
-* En conséquence, nous considérons que cette application est destinée uniquement pour les ordinateurs.
+* En conséquence, nous considérons que cette application est destinée uniquement pour les ordinateurs. 
+*
+* L'application étant hebergée sur heroku avec un plan gratuit, le protocole est Http. Pour une utilisation réelle, le 
+* protocole Https aurait été utilisé. 
 ## Création d'un compte admin
 ***
 * Pour créer un compte admin vous avez besoin de télécharger le logiciel MySQLWorkbench : https://www.mysql.com/fr/products/workbench/
