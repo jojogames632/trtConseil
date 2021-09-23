@@ -164,6 +164,17 @@ class CandidateController extends AbstractController
             $cvFile = $form->get('cvFilename')->getData();
             
             if ($cvFile) {
+                
+                // delete old cv if exists
+                $oldCvFilename = $user->getCvFilename();
+                if ($oldCvFilename) {
+                    $fullPathCv = $this->getParameter('cv_directory') . '/' . $oldCvFilename;
+                    if (file_exists($fullPathCv)) {
+                        unlink($fullPathCv);
+                    }
+                }
+
+                // add new cv
                 $originalFilename = pathinfo($cvFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $cvFile->guessExtension();
