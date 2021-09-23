@@ -36,7 +36,12 @@
 				{{ form_widget(form.yearExperienceRequired) }}
 				{{ form_errors(form.yearExperienceRequired) }}
 				{{ form_label(form.description) }}
-				{{ form_widget(form.description) }}
+				{{ form_widget(form.description, {
+					'attr' : {
+						'cols' : '25',
+						'rows' : '10'
+					}
+				}) }}
 				{{ form_errors(form.description) }}
 			</div>
 		</div>
