@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setIsActive(false);
+            $user->setIsActive(true);
             $user->setRoles(["ROLE_CANDIDATE"]);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -67,7 +67,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setIsActive(false);
+            $user->setIsActive(true);
             $user->setRoles(["ROLE_RECRUITER"]);
 
             $entityManager = $this->getDoctrine()->getManager();
